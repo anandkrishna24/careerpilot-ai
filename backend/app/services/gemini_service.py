@@ -1,6 +1,8 @@
 import json
 
 from google import genai
+from app.schemas.resume_schema import ResumeSchema
+from app.schemas.career_schema import CareerSchema
 
 from app.config.settings import GEMINI_API_KEY
 
@@ -50,4 +52,16 @@ Resume:
         elif text.startswith("```"):
             text = text.replace("```", "").strip()
 
-        return json.loads(text)
+        resume = ResumeSchema.model_validate(
+            json.loads(text)
+        )
+
+        return resume.model_dump()
+    def generate(self, prompt: str):
+
+        response = self.client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
+
+        return response.text
