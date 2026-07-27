@@ -2,6 +2,9 @@ from pathlib import Path
 from uuid import uuid4
 from app.services.gemini_service import GeminiService
 from app.tools.resume_tool import ResumeTool
+from app.services.career_service import CareerService
+from app.services.learning_service import LearningService
+from app.services.project_service import ProjectService
 
 import fitz
 from fastapi import UploadFile
@@ -18,6 +21,9 @@ class ResumeService:
     def __init__(self):
         self.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
         self.resume_tool = ResumeTool()
+        self.career_service = CareerService()
+        self.learning_service = LearningService()
+        self.project_service = ProjectService()
 
     async def save_resume(self, file: UploadFile):
         """
@@ -47,12 +53,25 @@ class ResumeService:
         analysis = self.resume_tool.analyze_resume(
             extracted_text
         )
+        career_roadmap = self.career_service.generate_roadmap(
+            analysis
+        )
+        learning_plan = self.learning_service.generate_learning_plan(
+            career_roadmap
+        )
+        project_recommendations = self.project_service.generate_projects(
+            analysis,
+            career_roadmap
+        )
 
         return {
             "success": True,
             "message": "Resume uploaded successfully.",
             "filename": filename,
-            "analysis": analysis
+            "resume_analysis": analysis,
+            "career_roadmap": career_roadmap,
+            "learning_plan": learning_plan,
+            "project_recommendations": project_recommendations
         }
 
     def extract_text(self, file_path: Path):

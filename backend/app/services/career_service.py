@@ -1,9 +1,13 @@
+from app.tools.career_tool import CareerTool
+
+
 class CareerService:
 
-    def get_project_info(self):
-        return {
-            "project": "CareerPilot AI",
-            "version": "1.0.0",
-            "description": "Multi-Agent AI Career & Research Assistant",
-            "status": "Development"
-        }
+    def __init__(self):
+        self.career_tool = CareerTool()
+
+    def generate_roadmap(self, resume_data):
+
+        return self.career_tool.generate_career_roadmap(
+            resume_data
+        )
