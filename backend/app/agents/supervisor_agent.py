@@ -4,6 +4,7 @@ from app.agents.learning_agent import LearningAgent
 from app.agents.project_agent import ProjectAgent
 from app.agents.interview_agent import InterviewAgent
 from app.agents.research_agent import ResearchAgent
+from app.core.memory import Memory
 
 
 class SupervisorAgent:
@@ -17,25 +18,37 @@ class SupervisorAgent:
         self.interview_agent = InterviewAgent()
         self.research_agent = ResearchAgent()
 
+        self.memory = Memory()
+
     def route(self, request_type, data):
 
+        self.memory.add(
+            "user",
+            str(data)
+        )
+
         if request_type == "resume":
-            return self.resume_agent.analyze_resume(data)
+
+            result = self.resume_agent.analyze_resume(data)
 
         elif request_type == "career":
-            return self.career_agent.generate_career_roadmap(data)
+
+            result = self.career_agent.generate_career_roadmap(data)
 
         elif request_type == "learning":
-            return self.learning_agent.generate_learning_plan(data)
+
+            result = self.learning_agent.generate_learning_plan(data)
 
         elif request_type == "project":
-            return self.project_agent.generate_projects(
+
+            result = self.project_agent.generate_projects(
                 data["resume_data"],
                 data["career_data"]
             )
 
         elif request_type == "interview":
-            return self.interview_agent.generate_interview_questions(
+
+            result = self.interview_agent.generate_interview_questions(
                 data["resume_data"],
                 data["career_data"],
                 data["learning_data"],
@@ -43,10 +56,19 @@ class SupervisorAgent:
             )
 
         elif request_type == "research":
-            return self.research_agent.research(data)
+
+            result = self.research_agent.research(data)
 
         else:
-            return {
+
+            result = {
                 "success": False,
                 "message": "Unknown request type."
             }
+
+        self.memory.add(
+            "assistant",
+            str(result)
+        )
+
+        return result
