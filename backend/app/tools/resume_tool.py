@@ -9,7 +9,7 @@ class ResumeTool:
     def __init__(self):
         self.gemini = GeminiService()
 
-    def analyse_resume(self, resume_text: str):
+    def analyze_resume(self, resume_text: str):
 
         return self.gemini.analyze_resume(
             resume_text

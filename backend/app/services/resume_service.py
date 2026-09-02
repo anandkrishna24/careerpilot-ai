@@ -5,6 +5,7 @@ from app.tools.resume_tool import ResumeTool
 from app.services.career_service import CareerService
 from app.services.learning_service import LearningService
 from app.services.project_service import ProjectService
+from app.services.interview_service import InterviewService
 
 import fitz
 from fastapi import UploadFile
@@ -24,6 +25,7 @@ class ResumeService:
         self.career_service = CareerService()
         self.learning_service = LearningService()
         self.project_service = ProjectService()
+        self.interview_service = InterviewService()
 
     async def save_resume(self, file: UploadFile):
         """
@@ -63,6 +65,14 @@ class ResumeService:
             analysis,
             career_roadmap
         )
+        interview_preparation = (
+            self.interview_service.generate_interview_questions(
+                analysis,
+                career_roadmap,
+                learning_plan,
+                project_recommendations
+            )
+        )
 
         return {
             "success": True,
@@ -71,7 +81,8 @@ class ResumeService:
             "resume_analysis": analysis,
             "career_roadmap": career_roadmap,
             "learning_plan": learning_plan,
-            "project_recommendations": project_recommendations
+            "project_recommendations": project_recommendations,
+            "interview_preparation": interview_preparation
         }
 
     def extract_text(self, file_path: Path):
