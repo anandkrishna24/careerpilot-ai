@@ -1,20 +1,27 @@
+from app.database.memory_db import MemoryDatabase
+
+
 class Memory:
 
     def __init__(self):
 
-        self.history = []
+        self.database = MemoryDatabase()
 
     def add(self, role, content):
 
-        self.history.append({
-            "role": role,
-            "content": content
-        })
+        self.database.save(
+            role,
+            content
+        )
 
     def get_history(self):
 
-        return self.history
+        return self.database.get_all()
 
     def clear(self):
 
-        self.history = []
+        self.database.clear()
+
+    def close(self):
+
+        self.database.close()
