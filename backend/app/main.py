@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.api.career import router as career_router
 from app.api.resume import router as resume_router
+from app.api.learning import router as learning_router
 
 app = FastAPI(
     title="CareerPilot AI",
@@ -25,3 +26,9 @@ def root():
     return {
         "message": "Welcome to CareerPilot AI 🚀"
     }
+
+app.include_router(
+    learning_router,
+    prefix="/learning",
+    tags=["Learning"]
+)
