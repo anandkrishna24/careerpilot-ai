@@ -46,6 +46,9 @@ def supervisor_node(state: CareerPilotState):
     )
 
     return {
+        "request_type": state["request_type"],
+        "data": state["data"],
+        "session_id": state.get("session_id", "default"),
         "memory_context": result.get("memory_context", ""),
         "result": result.get("result")
     }
