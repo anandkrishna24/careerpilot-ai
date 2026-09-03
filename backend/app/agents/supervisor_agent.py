@@ -70,7 +70,10 @@ class SupervisorAgent:
 
         elif request_type == "research":
 
-            result = self.research_agent.research(data)
+            result = self.research_agent.research(
+                data,
+                context
+            )
 
         else:
 

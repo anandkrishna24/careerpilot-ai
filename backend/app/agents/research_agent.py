@@ -7,10 +7,15 @@ class ResearchAgent:
 
         self.research_tool = ResearchTool()
 
-    def research(self, question):
+    def research(
+        self,
+        question,
+        memory_context=""
+    ):
 
         result = self.research_tool.research(
-            question
+            question,
+            memory_context
         )
 
         return result
