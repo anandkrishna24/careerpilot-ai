@@ -35,7 +35,10 @@ class SupervisorAgent:
 
         elif request_type == "career":
 
-            result = self.career_agent.generate_career_roadmap(data)
+            result = self.career_agent.generate_career_roadmap(
+                data,
+                context
+            )
 
         elif request_type == "learning":
 
