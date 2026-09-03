@@ -18,6 +18,22 @@ class Memory:
 
         return self.database.get_all()
 
+    def get_context(self, limit=10):
+
+        history = self.database.get_all()
+
+        recent_history = history[-limit:]
+
+        context = []
+
+        for message in recent_history:
+
+            context.append(
+                f"{message['role']}: {message['content']}"
+            )
+
+        return "\n".join(context)
+
     def clear(self):
 
         self.database.clear()
