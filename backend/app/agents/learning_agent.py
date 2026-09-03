@@ -14,7 +14,8 @@ class LearningAgent:
     ):
 
         result = self.learning_tool.generate_learning_plan(
-            career_data
+            career_data,
+            memory_context
         )
 
         return result
