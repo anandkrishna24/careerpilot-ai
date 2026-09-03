@@ -1,14 +1,10 @@
 from pathlib import Path
 from uuid import uuid4
-from app.services.gemini_service import GeminiService
-from app.tools.resume_tool import ResumeTool
-from app.services.career_service import CareerService
-from app.services.learning_service import LearningService
-from app.services.project_service import ProjectService
-from app.services.interview_service import InterviewService
 
 import fitz
 from fastapi import UploadFile
+
+from app.services.langgraph_service import LangGraphService
 
 
 class ResumeService:
@@ -21,15 +17,12 @@ class ResumeService:
 
     def __init__(self):
         self.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-        self.resume_tool = ResumeTool()
-        self.career_service = CareerService()
-        self.learning_service = LearningService()
-        self.project_service = ProjectService()
-        self.interview_service = InterviewService()
+        self.langgraph_service = LangGraphService()
 
     async def save_resume(self, file: UploadFile):
         """
         Validates, saves the uploaded PDF and extracts its text.
+        LangGraph handles the resume analysis through the Supervisor Agent.
         """
 
         # Validate file type
@@ -52,37 +45,18 @@ class ResumeService:
         # Extract text from the saved PDF
         extracted_text = self.extract_text(file_path)
 
-        analysis = self.resume_tool.analyze_resume(
-            extracted_text
-        )
-        career_roadmap = self.career_service.generate_roadmap(
-            analysis
-        )
-        learning_plan = self.learning_service.generate_learning_plan(
-            career_roadmap
-        )
-        project_recommendations = self.project_service.generate_projects(
-            analysis,
-            career_roadmap
-        )
-        interview_preparation = (
-            self.interview_service.generate_interview_questions(
-                analysis,
-                career_roadmap,
-                learning_plan,
-                project_recommendations
-            )
+        # Execute resume analysis through LangGraph
+        graph_result = self.langgraph_service.execute(
+            request_type="resume",
+            data=extracted_text
         )
 
         return {
             "success": True,
             "message": "Resume uploaded successfully.",
             "filename": filename,
-            "resume_analysis": analysis,
-            "career_roadmap": career_roadmap,
-            "learning_plan": learning_plan,
-            "project_recommendations": project_recommendations,
-            "interview_preparation": interview_preparation
+            "resume_analysis": graph_result.get("result"),
+            "memory_context": graph_result.get("memory_context", "")
         }
 
     def extract_text(self, file_path: Path):
