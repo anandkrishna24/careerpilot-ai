@@ -54,7 +54,8 @@ class SupervisorAgent:
 
             result = self.project_agent.generate_projects(
                 data["resume_data"],
-                data["career_data"]
+                data["career_data"],
+                context
             )
 
         elif request_type == "interview":
