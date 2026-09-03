@@ -45,7 +45,10 @@ class SupervisorAgent:
 
         elif request_type == "learning":
 
-            result = self.learning_agent.generate_learning_plan(data)
+            result = self.learning_agent.generate_learning_plan(
+                data,
+                context
+            )
 
         elif request_type == "project":
 
