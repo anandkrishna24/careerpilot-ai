@@ -16,7 +16,8 @@ class ProjectAgent:
 
         result = self.project_tool.generate_projects(
             resume_data,
-            career_data
+            career_data,
+            memory_context
         )
 
         return result

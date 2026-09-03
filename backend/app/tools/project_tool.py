@@ -8,12 +8,31 @@ class ProjectTool:
     def __init__(self):
         self.gemini = GeminiService()
 
-    def generate_projects(self, resume_data, career_data):
+    def generate_projects(
+        self,
+        resume_data,
+        career_data,
+        memory_context=""
+    ):
 
         prompt = f"""
-You are a Senior AI Engineering Mentor.
+You are an experienced AI Project Mentor.
 
-Based on the student's resume and career roadmap, recommend portfolio projects.
+Based on the following resume information, career roadmap, and previous conversation context, recommend suitable projects for the student.
+
+Resume:
+
+{json.dumps(resume_data, indent=2)}
+
+Career Roadmap:
+
+{json.dumps(career_data, indent=2)}
+
+Previous Conversation Context:
+
+{memory_context}
+
+Use the previous conversation context only when it is relevant to the student's project recommendations.
 
 Return ONLY valid JSON.
 
@@ -26,14 +45,6 @@ Schema:
     "recommended_github_structure": [],
     "deployment_suggestions": []
 }}
-
-Resume:
-
-{json.dumps(resume_data, indent=2)}
-
-Career Roadmap:
-
-{json.dumps(career_data, indent=2)}
 """
 
         return self.gemini.generate(prompt)
