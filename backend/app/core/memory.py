@@ -3,24 +3,31 @@ from app.database.memory_db import MemoryDatabase
 
 class Memory:
 
-    def __init__(self):
+    def __init__(self, session_id="default"):
+
+        self.session_id = session_id
 
         self.database = MemoryDatabase()
 
     def add(self, role, content):
 
         self.database.save(
+            self.session_id,
             role,
             content
         )
 
     def get_history(self):
 
-        return self.database.get_all()
+        return self.database.get_all(
+            self.session_id
+        )
 
     def get_context(self, limit=10):
 
-        history = self.database.get_all()
+        history = self.database.get_all(
+            self.session_id
+        )
 
         recent_history = history[-limit:]
 
@@ -33,14 +40,16 @@ class Memory:
             )
 
         return "\n".join(context)
-    
+
     def get_recent_context(self, limit=10):
 
         return self.get_context(limit)
-    
+
     def clear(self):
 
-        self.database.clear()
+        self.database.clear(
+            self.session_id
+        )
 
     def close(self):
 
