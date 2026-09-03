@@ -22,6 +22,8 @@ class SupervisorAgent:
 
     def route(self, request_type, data):
 
+        context = self.memory.get_context()
+
         self.memory.add(
             "user",
             str(data)
@@ -71,4 +73,8 @@ class SupervisorAgent:
             str(result)
         )
 
-        return result
+        return {
+            "success": True,
+            "memory_context": context,
+            "result": result
+        }
