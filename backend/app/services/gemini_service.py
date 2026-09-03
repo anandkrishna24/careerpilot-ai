@@ -43,14 +43,28 @@ class GeminiService:
 
                 raise e
 
-    def analyze_resume(self, resume_text: str):
+    def analyze_resume(self, resume_text: str, memory_context=""):
 
         prompt = f"""
 You are an expert ATS Resume Analyzer.
 
 Analyse the following resume.
 
-Return ONLY valid JSON.
+Previous Conversation Context:
+
+{memory_context}
+
+Use the previous conversation context only when it is relevant to understanding the student's resume.
+
+IMPORTANT:
+- Return ONLY valid JSON.
+- Follow the schema exactly.
+- "education" must be an array of strings.
+- "experience" must be an array of strings.
+- "projects" must be an array of strings.
+- "certifications" must be an array of strings.
+- If information is missing, use an empty string or empty array as appropriate.
+- Do not return objects inside education, experience, projects, or certifications.
 
 Schema:
 

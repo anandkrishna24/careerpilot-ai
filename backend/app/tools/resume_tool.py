@@ -14,7 +14,7 @@ class ResumeTool:
         resume_text: str,
         memory_context=""
     ):
-
         return self.gemini.analyze_resume(
-            resume_text
+            resume_text,
+            memory_context
         )
