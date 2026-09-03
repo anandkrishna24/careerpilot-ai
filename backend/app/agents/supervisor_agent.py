@@ -64,7 +64,8 @@ class SupervisorAgent:
                 data["resume_data"],
                 data["career_data"],
                 data["learning_data"],
-                data["project_data"]
+                data["project_data"],
+                context
             )
 
         elif request_type == "research":
