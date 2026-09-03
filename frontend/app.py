@@ -32,7 +32,10 @@ st.subheader("Backend Connection")
 
 if st.button("Test Backend Connection"):
     try:
-        response = requests.get(f"{API_BASE_URL}/")
+        response = requests.get(
+            f"{API_BASE_URL}/",
+            timeout=5
+        )
 
         if response.status_code == 200:
             st.success("Backend connected successfully!")
@@ -44,3 +47,25 @@ if st.button("Test Backend Connection"):
 
     except requests.exceptions.RequestException as error:
         st.error(f"Could not connect to backend: {error}")
+
+st.divider()
+
+st.subheader("System Status")
+
+if st.button("Check System Status"):
+    try:
+        response = requests.get(
+            f"{API_BASE_URL}/",
+            timeout=5
+        )
+
+        if response.status_code == 200:
+            st.success("🟢 CareerPilot AI backend is online.")
+        else:
+            st.warning(
+                f"🟡 Backend responded with status code "
+                f"{response.status_code}."
+            )
+
+    except requests.exceptions.RequestException:
+        st.error("🔴 CareerPilot AI backend is offline.")
