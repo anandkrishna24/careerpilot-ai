@@ -14,6 +14,16 @@ VALID_REQUEST_TYPES = {
 }
 
 
+def validate_state(state: CareerPilotState):
+    if not state.get("request_type"):
+        raise ValueError("request_type is required")
+
+    if "data" not in state:
+        raise ValueError("data is required")
+
+    return "router"
+
+
 def route_request(state: CareerPilotState):
     request_type = state.get("request_type")
 
@@ -44,11 +54,19 @@ def supervisor_node(state: CareerPilotState):
 def build_careerpilot_graph():
     graph = StateGraph(CareerPilotState)
 
+    graph.add_node("validator", lambda state: state)
+    graph.add_node("router", lambda state: state)
     graph.add_node("supervisor", supervisor_node)
 
-    graph.add_edge(START, "router")
+    graph.add_edge(START, "validator")
 
-    graph.add_node("router", lambda state: state)
+    graph.add_conditional_edges(
+        "validator",
+        validate_state,
+        {
+            "router": "router"
+        }
+    )
 
     graph.add_conditional_edges(
         "router",
