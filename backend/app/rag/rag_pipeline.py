@@ -4,17 +4,12 @@ from app.services.gemini_service import GeminiService
 
 
 class RAGPipeline:
-
     def __init__(self):
-
         self.retriever = Retriever()
         self.gemini = GeminiService()
 
-    def research(self, question):
-
-        documents = self.retriever.retrieve(
-            question
-        )
+    def research(self, question, memory_context=""):
+        documents = self.retriever.retrieve(question)
 
         context = "\n\n".join(
             document["content"]
@@ -32,9 +27,17 @@ class RAGPipeline:
             context
         )
 
-        answer = self.gemini.generate(
-            prompt
-        )
+        if memory_context:
+            prompt += f"""
+
+Previous Conversation Context:
+
+{memory_context}
+
+Use the previous conversation context only when it is relevant.
+"""
+
+        answer = self.gemini.generate(prompt)
 
         return {
             "success": True,
