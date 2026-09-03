@@ -1,11 +1,22 @@
 from fastapi import APIRouter
-from app.services.career_service import CareerService
+
+from app.services.langgraph_service import LangGraphService
+
 
 router = APIRouter()
 
-career_service = CareerService()
+langgraph_service = LangGraphService()
 
 
-@router.get("/info")
-def get_project_information():
-    return career_service.get_project_info()
+@router.post("/roadmap")
+async def generate_career_roadmap(data: dict):
+    result = langgraph_service.execute(
+        request_type="career",
+        data=data
+    )
+
+    return {
+        "success": True,
+        "result": result.get("result"),
+        "memory_context": result.get("memory_context", "")
+    }
