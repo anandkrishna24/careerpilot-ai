@@ -22,7 +22,7 @@ class SupervisorAgent:
 
     def route(self, request_type, data):
 
-        context = self.memory.get_context()
+        context = self.memory.get_recent_context()
 
         self.memory.add(
             "user",

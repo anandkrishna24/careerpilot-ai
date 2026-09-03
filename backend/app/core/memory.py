@@ -33,7 +33,11 @@ class Memory:
             )
 
         return "\n".join(context)
+    
+    def get_recent_context(self, limit=10):
 
+        return self.get_context(limit)
+    
     def clear(self):
 
         self.database.clear()
