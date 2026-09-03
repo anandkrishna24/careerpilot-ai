@@ -14,7 +14,7 @@ class CareerAgent:
     ):
 
         result = self.career_tool.generate_career_roadmap(
-            resume_data
+            resume_data,
+            memory_context
         )
-
         return result

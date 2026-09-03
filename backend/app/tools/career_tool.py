@@ -6,16 +6,26 @@ class CareerTool:
     def __init__(self):
         self.gemini = GeminiService()
 
-    def generate_career_roadmap(self, resume):
+    def generate_career_roadmap(
+        self,
+        resume,
+        memory_context=""
+    ):
 
         prompt = f"""
 You are an experienced AI Career Mentor.
 
-Based on the following resume information, generate a structured career roadmap.
+Based on the following resume information and previous conversation context, generate a structured career roadmap.
 
 Resume:
 
 {resume}
+
+Previous Conversation Context:
+
+{memory_context}
+
+Use the previous conversation context only when it is relevant to the student's current career planning.
 
 Return ONLY valid JSON.
 
