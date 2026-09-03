@@ -6,7 +6,11 @@ class ResumeAgent:
     def __init__(self):
         self.resume_tool = ResumeTool()
 
-    def analyze_resume(self, resume_text: str):
+    def analyze_resume(
+        self,
+        resume_text: str,
+        memory_context=""
+    ):
 
         result = self.resume_tool.analyze_resume(
             resume_text

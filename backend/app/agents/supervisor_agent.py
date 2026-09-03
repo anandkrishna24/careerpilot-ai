@@ -31,7 +31,10 @@ class SupervisorAgent:
 
         if request_type == "resume":
 
-            result = self.resume_agent.analyze_resume(data)
+            result = self.resume_agent.analyze_resume(
+                data,
+                context
+            )
 
         elif request_type == "career":
 
