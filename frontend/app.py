@@ -244,3 +244,67 @@ if st.button("Generate Learning Plan"):
 
         except requests.exceptions.RequestException as error:
             st.error(f"Could not connect to backend: {error}")
+
+
+st.divider()
+
+# Project recommendations
+st.subheader("Project Recommendations")
+
+project_input = st.text_area(
+    "Enter your resume skills and career goal",
+    placeholder=(
+        "Example: I know Python, SQL, Pandas, and Power BI. "
+        "I want to become a Data Analyst."
+    ),
+    height=120
+)
+
+if st.button("Recommend Projects"):
+    if not project_input.strip():
+        st.warning("Please enter your skills and career goal.")
+    else:
+        try:
+            response = requests.post(
+                f"{API_BASE_URL}/project/recommend",
+                json={
+                    "resume_data": {
+                        "skills": project_input
+                    },
+                    "career_data": {
+                        "career_goal": project_input
+                    }
+                },
+                timeout=120
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+
+                if result.get("success"):
+                    st.success(
+                        "Project recommendations generated successfully!"
+                    )
+
+                    st.subheader("Recommended Projects")
+                    st.json(result.get("result"))
+
+                    if result.get("memory_context"):
+                        with st.expander("Memory Context"):
+                            st.text(result["memory_context"])
+                else:
+                    st.error(
+                        result.get(
+                            "message",
+                            "Project recommendation failed."
+                        )
+                    )
+
+            else:
+                st.error(
+                    f"Backend returned status code: "
+                    f"{response.status_code}"
+                )
+
+        except requests.exceptions.RequestException as error:
+            st.error(f"Could not connect to backend: {error}")
