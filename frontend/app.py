@@ -130,3 +130,58 @@ if uploaded_file is not None:
 
         except requests.exceptions.RequestException as error:
             st.error(f"Could not connect to backend: {error}")
+
+st.divider()
+
+# Career roadmap
+st.subheader("Career Roadmap")
+
+career_input = st.text_area(
+    "Enter your career information",
+    placeholder=(
+        "Example: I know Python and SQL and want to become "
+        "a Data Analyst."
+    ),
+    height=120
+)
+
+if st.button("Generate Career Roadmap"):
+    if not career_input.strip():
+        st.warning("Please enter your career information.")
+    else:
+        try:
+            response = requests.post(
+                f"{API_BASE_URL}/career/roadmap",
+                json={
+                    "career_goal": career_input
+                },
+                timeout=120
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+
+                if result.get("success"):
+                    st.success("Career roadmap generated successfully!")
+
+                    st.subheader("Career Roadmap")
+                    st.json(result.get("result"))
+
+                    if result.get("memory_context"):
+                        with st.expander("Memory Context"):
+                            st.text(result["memory_context"])
+                else:
+                    st.error(
+                        result.get(
+                            "message",
+                            "Career roadmap generation failed."
+                        )
+                    )
+            else:
+                st.error(
+                    f"Backend returned status code: "
+                    f"{response.status_code}"
+                )
+
+        except requests.exceptions.RequestException as error:
+            st.error(f"Could not connect to backend: {error}")
