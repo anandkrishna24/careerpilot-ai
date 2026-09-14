@@ -308,3 +308,133 @@ if st.button("Recommend Projects"):
 
         except requests.exceptions.RequestException as error:
             st.error(f"Could not connect to backend: {error}")
+
+
+st.divider()
+
+# Interview preparation
+st.subheader("Interview Preparation")
+
+interview_input = st.text_area(
+    "Enter your resume, career goal, and project information",
+    placeholder=(
+        "Example: I know Python, SQL, Pandas, and Power BI. "
+        "I want to become a Data Analyst. "
+        "My project is a retail sales analytics dashboard."
+    ),
+    height=140
+)
+
+if st.button("Generate Interview Preparation"):
+    if not interview_input.strip():
+        st.warning("Please enter your interview preparation information.")
+    else:
+        try:
+            response = requests.post(
+                f"{API_BASE_URL}/interview/prepare",
+                json={
+                    "resume_data": {
+                        "information": interview_input
+                    },
+                    "career_data": {
+                        "career_goal": interview_input
+                    },
+                    "learning_data": {
+                        "learning_goal": interview_input
+                    },
+                    "project_data": {
+                        "projects": interview_input
+                    }
+                },
+                timeout=120
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+
+                if result.get("success"):
+                    st.success(
+                        "Interview preparation generated successfully!"
+                    )
+
+                    st.subheader("Interview Preparation")
+                    st.json(result.get("result"))
+
+                    if result.get("memory_context"):
+                        with st.expander("Memory Context"):
+                            st.text(result["memory_context"])
+                else:
+                    st.error(
+                        result.get(
+                            "message",
+                            "Interview preparation failed."
+                        )
+                    )
+
+            else:
+                st.error(
+                    f"Backend returned status code: "
+                    f"{response.status_code}"
+                )
+
+        except requests.exceptions.RequestException as error:
+            st.error(f"Could not connect to backend: {error}")
+
+
+st.divider()
+
+# Research assistant
+st.subheader("AI Research Assistant")
+
+research_question = st.text_area(
+    "Ask a career or AI-related research question",
+    placeholder=(
+        "Example: What skills are required to become "
+        "an AI Engineer?"
+    ),
+    height=120
+)
+
+if st.button("Ask Research Assistant"):
+    if not research_question.strip():
+        st.warning("Please enter a research question.")
+    else:
+        try:
+            response = requests.post(
+                f"{API_BASE_URL}/research/ask",
+                json={
+                    "question": research_question
+                },
+                timeout=120
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+
+                if result.get("success"):
+                    st.success(
+                        "Research answer generated successfully!"
+                    )
+
+                    st.subheader("Research Answer")
+                    st.write(result.get("result"))
+
+                    if result.get("memory_context"):
+                        with st.expander("Memory Context"):
+                            st.text(result["memory_context"])
+                else:
+                    st.error(
+                        result.get(
+                            "message",
+                            "Research request failed."
+                        )
+                    )
+
+            else:
+                st.error(
+                    f"Backend returned status code: "
+                    f"{response.status_code}"
+                )
+
+        except requests.exceptions.RequestException as error:
+            st.error(f"Could not connect to backend: {error}")
