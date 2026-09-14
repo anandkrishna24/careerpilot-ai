@@ -185,3 +185,62 @@ if st.button("Generate Career Roadmap"):
 
         except requests.exceptions.RequestException as error:
             st.error(f"Could not connect to backend: {error}")
+
+
+st.divider()
+
+# Learning plan
+st.subheader("Personalised Learning Plan")
+
+learning_input = st.text_area(
+    "Enter your career goal or roadmap",
+    placeholder=(
+        "Example: I want to become a Data Analyst. "
+        "I need to improve Python, SQL, Excel, and Power BI."
+    ),
+    height=120
+)
+
+if st.button("Generate Learning Plan"):
+    if not learning_input.strip():
+        st.warning("Please enter your career goal or roadmap.")
+    else:
+        try:
+            response = requests.post(
+                f"{API_BASE_URL}/learning/plan",
+                json={
+                    "career_goal": learning_input
+                },
+                timeout=120
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+
+                if result.get("success"):
+                    st.success(
+                        "Personalised learning plan generated successfully!"
+                    )
+
+                    st.subheader("Learning Plan")
+                    st.json(result.get("result"))
+
+                    if result.get("memory_context"):
+                        with st.expander("Memory Context"):
+                            st.text(result["memory_context"])
+                else:
+                    st.error(
+                        result.get(
+                            "message",
+                            "Learning plan generation failed."
+                        )
+                    )
+
+            else:
+                st.error(
+                    f"Backend returned status code: "
+                    f"{response.status_code}"
+                )
+
+        except requests.exceptions.RequestException as error:
+            st.error(f"Could not connect to backend: {error}")
