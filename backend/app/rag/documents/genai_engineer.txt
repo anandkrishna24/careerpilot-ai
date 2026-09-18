@@ -1,0 +1,17 @@
+Generative AI Engineer
+
+A Generative AI Engineer develops applications that use generative artificial intelligence models to create, transform, retrieve, or reason over information.
+
+Core responsibilities include integrating large language models into applications, designing prompts, developing retrieval-augmented generation systems, working with embeddings and vector databases, evaluating model responses, and building reliable AI workflows.
+
+Important technical skills include Python, APIs, machine learning fundamentals, natural language processing, transformers, large language models, prompt engineering, embeddings, vector databases, and retrieval-augmented generation.
+
+Generative AI applications commonly use components such as language models, embedding models, document loaders, text splitters, vector stores, retrieval systems, prompts, and application APIs.
+
+RAG systems combine document retrieval with language model generation. Documents are divided into chunks, converted into vector embeddings, stored in a vector database, and retrieved based on semantic similarity when a user asks a question.
+
+Common Generative AI projects include AI chatbots, document question-answering systems, research assistants, resume assistants, coding assistants, summarization systems, and knowledge-base search applications.
+
+Entry-level candidates should understand how LLM APIs work, how prompts influence model output, how embeddings represent text, and how vector search can be used to provide relevant context to a language model.
+
+Useful learning areas include NLP, transformers, LLM APIs, prompt engineering, RAG, embeddings, vector databases, LangChain, LangGraph, model evaluation, and responsible AI application development.

@@ -4,23 +4,33 @@ from app.services.gemini_service import GeminiService
 
 
 class RAGPipeline:
+
     def __init__(self):
         self.retriever = Retriever()
         self.gemini = GeminiService()
 
     def research(self, question, memory_context=""):
-        documents = self.retriever.retrieve(question)
 
-        context = "\n\n".join(
-            document["content"]
-            for document in documents
+        documents = self.retriever.retrieve(
+            question,
+            top_k=3
         )
 
-        if not context:
+        if not documents:
             return {
                 "success": False,
                 "message": "No relevant research information found."
             }
+
+        context_parts = []
+
+        for document in documents:
+            context_parts.append(
+                f"Source: {document['source']}\n"
+                f"Content:\n{document['content']}"
+            )
+
+        context = "\n\n".join(context_parts)
 
         prompt = get_research_prompt(
             question,
@@ -39,8 +49,14 @@ Use the previous conversation context only when it is relevant.
 
         answer = self.gemini.generate(prompt)
 
+        sources = list(dict.fromkeys(
+            document["source"]
+            for document in documents
+        ))
+
         return {
             "success": True,
             "question": question,
-            "answer": answer
+            "answer": answer,
+            "sources": sources
         }

@@ -16,3 +16,4 @@ uploads/
 
 # SQLite database
 *.db
+backend/app/rag/chroma_db/

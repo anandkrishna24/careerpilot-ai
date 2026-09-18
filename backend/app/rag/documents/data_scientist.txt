@@ -1,0 +1,17 @@
+Data Scientist
+
+A Data Scientist uses data, statistics, programming, and machine learning to identify patterns, build predictive models, and generate insights that support business or research decisions.
+
+Core responsibilities include collecting and cleaning data, exploratory data analysis, statistical analysis, feature engineering, model development, model evaluation, visualization, and communicating findings to technical and non-technical stakeholders.
+
+Important technical skills include Python, SQL, Pandas, NumPy, Scikit-learn, statistics, probability, data visualization, machine learning, and exploratory data analysis.
+
+Common visualization tools include Matplotlib, Seaborn, Tableau, and Power BI. SQL is important for extracting and transforming data from relational databases.
+
+Machine learning knowledge for Data Scientists can include linear regression, logistic regression, decision trees, random forests, gradient boosting, clustering, dimensionality reduction, and model evaluation using appropriate metrics.
+
+Typical Data Science projects include customer churn prediction, sales forecasting, customer segmentation, fraud detection, recommendation systems, sentiment analysis, and demand prediction.
+
+An entry-level Data Scientist should be able to clean datasets, perform exploratory analysis, identify useful features, train baseline models, evaluate results, and communicate conclusions clearly.
+
+Useful learning areas include statistics, probability, SQL, Python, exploratory data analysis, machine learning, data visualization, experimentation, and business analytics. Building end-to-end projects using real datasets helps demonstrate practical Data Science skills.

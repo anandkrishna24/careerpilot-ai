@@ -1,0 +1,17 @@
+Prompt Engineer
+
+A Prompt Engineer designs and evaluates instructions used to guide large language models toward useful, reliable, and consistent outputs.
+
+Core responsibilities include writing prompts, testing different prompt structures, designing system instructions, creating examples for few-shot prompting, evaluating model responses, and improving prompts for specific application requirements.
+
+Important skills include understanding large language models, natural language processing, prompt design, structured outputs, model evaluation, Python, APIs, and basic machine learning concepts.
+
+Common prompting approaches include zero-shot prompting, few-shot prompting, role-based instructions, chain-of-thought-style task decomposition, structured output prompting, and prompt templates.
+
+Prompt Engineers may work with applications such as chatbots, content generation systems, document analysis, question-answering systems, summarization tools, and AI assistants.
+
+For production AI applications, prompt engineering can involve defining clear instructions, controlling output formats, handling missing information, reducing hallucinations through appropriate context, and testing prompts against representative examples.
+
+Entry-level candidates should understand how language models process instructions and context, how prompt wording affects output, and how to evaluate responses systematically.
+
+Useful learning areas include LLM fundamentals, prompt engineering, NLP, Python, API integration, structured outputs, RAG, evaluation methods, and responsible AI development.

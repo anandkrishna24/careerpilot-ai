@@ -1,0 +1,17 @@
+Machine Learning Engineer
+
+A Machine Learning Engineer develops machine learning systems and integrates trained models into reliable software applications.
+
+Core responsibilities include preparing training data, developing machine learning models, tuning hyperparameters, evaluating models, creating inference pipelines, deploying models, and monitoring model performance.
+
+Important technical skills include Python, NumPy, Pandas, Scikit-learn, PyTorch or TensorFlow, SQL, Git, APIs, data preprocessing, feature engineering, model evaluation, and software engineering.
+
+Machine Learning Engineers should understand algorithms such as linear regression, logistic regression, decision trees, random forests, gradient boosting, support vector machines, clustering, and neural networks.
+
+Deep learning knowledge may include convolutional neural networks, recurrent neural networks, transformers, transfer learning, and model fine-tuning.
+
+Common projects include classification systems, regression models, recommendation engines, anomaly detection, image classification, natural language processing systems, and predictive analytics applications.
+
+An entry-level Machine Learning Engineer should understand the complete machine learning lifecycle: data collection, preprocessing, feature engineering, training, validation, testing, deployment, and monitoring.
+
+Useful learning areas include machine learning algorithms, statistics, Python programming, model evaluation, deep learning, APIs, Docker, cloud platforms, MLOps, model serving, and experiment tracking.

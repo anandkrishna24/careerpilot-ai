@@ -1,13 +1,15 @@
-AI Engineers build intelligent applications using machine learning,
-deep learning,
-LLMs,
-RAG,
-LangChain,
-LangGraph,
-FastAPI,
-Docker,
-Kubernetes,
-Cloud,
-Python,
-SQL,
-Vector Databases.
+AI Engineer
+
+An AI Engineer develops and deploys artificial intelligence systems that solve practical problems using machine learning, deep learning, natural language processing, computer vision, and generative AI.
+
+Core responsibilities include preparing data, selecting and training machine learning models, evaluating model performance, integrating AI models into applications, developing APIs, monitoring deployed models, and improving AI systems based on real-world requirements.
+
+Important technical skills include Python, SQL, NumPy, Pandas, Scikit-learn, PyTorch or TensorFlow, machine learning algorithms, deep learning, data preprocessing, model evaluation, REST APIs, Git, and software development practices.
+
+For modern AI engineering roles, knowledge of transformers, large language models, prompt engineering, retrieval-augmented generation, embeddings, vector databases, and AI application development can be useful.
+
+Common AI Engineer projects include recommendation systems, intelligent chatbots, document question-answering systems, image classification applications, sentiment analysis systems, fraud detection systems, and retrieval-augmented generation applications.
+
+Entry-level candidates should understand Python programming, statistics, machine learning fundamentals, data preprocessing, model evaluation, and basic deployment. Building practical projects and explaining design decisions is important when preparing for AI engineering interviews.
+
+Useful learning areas include supervised learning, unsupervised learning, deep learning, natural language processing, computer vision, generative AI, APIs, Docker, cloud deployment, and MLOps fundamentals.
